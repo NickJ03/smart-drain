@@ -6,7 +6,7 @@ This software is made available under the terms of the GNU General Public Licens
 
 // variables for the server name, username, user password and the database name.
 $server = "localhost";
-$user = "Nick_J03";
+$user = "Nick_03J";
 $pass = "Nick&03J";
 $db = "smart_drain";
 
@@ -21,4 +21,6 @@ if ($conn->connect_error) {
     echo "Connection successful";
 }
 ?>
+
+
 
