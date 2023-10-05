@@ -6,8 +6,8 @@ This software is made available under the terms of the GNU General Public Licens
 
 // variables for the server name, username, user password and the database name.
 $server = "localhost";
-$user = "Nick_03J";
-$pass = "Nick&03J";
+$user = "245";
+$pass = "245";
 $db = "smart_drain";
 
 // make new connection with MySQL database
