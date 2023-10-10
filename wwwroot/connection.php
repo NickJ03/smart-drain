@@ -4,6 +4,14 @@
 Copyright (c) 2023 - Eindhoven University of Technology, The Netherlands
 This software is made available under the terms of the GNU General Public License v3.0. */
 
+// path to log file
+$logs_file_path = __DIR__ . "/logs/log.txt";
+
+// clear previous log and start new log file
+file_put_contents($logs_file_path, "");
+$message = "Log created " . date("Y-m-d H:i:s") . "\n" . str_repeat("-", 100) . "\n";
+file_put_contents($logs_file_path, $message, FILE_APPEND);
+
 // variables for the server name, username, user password and the database name.
 $server = "localhost";
 $user = "245";
@@ -16,10 +24,12 @@ $conn = new mysqli($server, $user, $pass, $db);
 // check if connection was successful
 // if unsuccessful, exit the script and display the error code
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    $message = date("Y-m-d H:i:s") . " - Connection failed: " . $conn->connect_error . "\n";
+    die();
 } else {
-    echo "Connection successful";
+    $message = date("Y-m-d H:i:s") . " - Connection successful\n";
 }
+file_put_contents($logs_file_path, $message, FILE_APPEND);
 
 // check request type POST and connect variables from microcontroller
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -33,19 +43,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     // note: if no error occurs, $conn->query($insert_query) returns TRUE. the condition == TRUE is implicit here
     // if unsuccessful, display the error code and the generated query
     if ($conn->query($insert_query)) {
-        echo "Insertion successful";
+        $message = date("Y-m-d H:i:s") . " - Insertion successful\n";
     } else {
-        echo "Insertion unsuccessful" . "<br>" . "Error: " . $insert_query . "<br>" . $conn->error;
+        $message = date("Y-m-d H:i:s") . " - Insertion unsuccessful" . "<br>" . "Error: " . $insert_query . "<br>" . $conn->error . "\n";
     }
+    file_put_contents($logs_file_path, $message, FILE_APPEND);
 }
 
 // close the database connection
 $conn->close();
-
-// the data from the microcontroller should be sent via POST request (controller side)
-// the data needs to be placed in variable with $name = $_POST['name_on_controller']
-// the data needs to be inserted into the database. before doing this, the database tables must be created
-// the query execution must be checked
-// the connection must be closed at the end
 
 ?>
