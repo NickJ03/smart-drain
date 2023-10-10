@@ -20,7 +20,13 @@ if ($conn->connect_error) {
 } else {
     echo "Connection successful";
 }
-?>
+
+// the data from the microcontroller should be sent via POST request (controller side)
+// the data needs to be placed in variable with $name = $_POST['name_on_controller']
+// the data needs to be inserted into the database. before doing this, the database tables must be created
+// the query execution must be checked
+// the connection must be closed at the end
+
 
 
 
