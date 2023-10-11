@@ -1,3 +1,4 @@
+A new TODO was made on 11/10/2023
 * Set up Github Repo
 * Set up Apache web server
 * Set up MySQL database
