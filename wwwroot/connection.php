@@ -8,7 +8,7 @@ This software is made available under the terms of the GNU General Public Licens
 $logs_file_path = __DIR__ . "/logs/log.txt";
 
 // force errors to be displayed in the log
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 error_reporting(E_ALL);
 
 // clear previous log and start new log file
@@ -22,33 +22,37 @@ $user = "245";
 $pass = "245";
 $db = "smart_drain";
 
-// make new connection with MySQL database
-$conn = new mysqli($server, $user, $pass, $db);
 
 // check if connection was successful
 // if unsuccessful, exit the script and display the error code
-if ($conn->connect_error) {
-    $message = date("Y-m-d H:i:s") . " - Connection failed: " . $conn->connect_error . "\n";
-    echo $message;
+try {
+    // make new connection with MySQL database
+    $conn = new mysqli($server, $user, $pass, $db);
+
+    if ($conn->connect_error) {
+        throw new Exception("Connection failed: " . $conn->connect_error);
+    } else {
+        $message = date("Y-m-d H:i:s") . " - Connection successful\n";
+        file_put_contents($logs_file_path, $message, FILE_APPEND);
+    }
+} catch (Exception $connect_error) {
+    $message = date("Y-m-d H:i:s") . " - " . $connect_error->getMessage() . "\n";
     file_put_contents($logs_file_path, $message, FILE_APPEND);
 
     // open error log window (this uses JavaScript)
-?>
+    ?>
 
-<script>
-    let logFilePath = "<?php echo $logs_file_path; ?>";
-    let popUpName = "Error log";
+    <script>
+        let logFilePath = "logs/log.txt";
+        let popUpName = "Error log";
 
-    window.open(logFilePath, popUpName, "_blank");
-</script>
+        window.open(logFilePath, popUpName, "_blank");
+    </script>
 
-<?php
+    <?php
 
     // exit script
     die();
-} else {
-    $message = date("Y-m-d H:i:s") . " - Connection successful\n";
-    file_put_contents($logs_file_path, $message, FILE_APPEND);
 }
 
 
@@ -56,19 +60,37 @@ if ($conn->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $volume = $_POST["//"];
 
-    // insert data into connected MySQL database
-    // generate SQL query
-    $insert_query = "INSERT INTO water_usage (volume) VALUES ($volume)";
+    try {
+        // insert data into connected MySQL database
+        // generate SQL query
+        $insert_query = "INSERT INTO water_usage (volume) VALUES ($volume)";
 
-    // perform and check query
-    // note: if no error occurs, $conn->query($insert_query) returns TRUE. the condition == TRUE is implicit here
-    // if unsuccessful, display the error code and the generated query
-    if ($conn->query($insert_query)) {
-        $message = date("Y-m-d H:i:s") . " - Insertion successful\n";
-    } else {
-        $message = date("Y-m-d H:i:s") . " - Insertion unsuccessful" . "<br>" . "Error: " . $insert_query . "<br>" . $conn->error . "\n";
+        // perform and check query
+        // if unsuccessful, display the error code and the generated query
+        if (!$conn->query($insert_query)) {
+            throw new Exception("Insertion unsuccessful" . "<br>" . "Error: " . $insert_query . "<br>" . $conn->error);
+        } else {
+            $message = date("Y-m-d H:i:s") . " - Insertion successful\n";
+            file_put_contents($logs_file_path, $message, FILE_APPEND);
+        }
+
+    } catch (Exception $insertion_error) {
+        $message = date("Y-m-d H:i:s") . " - " . $insertion_error->getMessage() . "\n";
+        file_put_contents($logs_file_path, $message, FILE_APPEND);
+
+        // open error log window (this uses JavaScript)
+        ?>
+
+        <script>
+            let logFilePath = "logs/log.txt";
+            let popUpName = "Error log";
+
+            window.open(logFilePath, popUpName, "_blank");
+        </script>
+
+        <?php
     }
-    file_put_contents($logs_file_path, $message, FILE_APPEND);
+
 }
 
 // close the database connection
