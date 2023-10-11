@@ -8,7 +8,7 @@ This software is made available under the terms of the GNU General Public Licens
 $logs_file_path = __DIR__ . "/logs/log.txt";
 
 // force errors to be displayed in the log
-ini_set('display_errors', 0);
+ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // clear previous log and start new log file
@@ -20,7 +20,7 @@ file_put_contents($logs_file_path, $message, FILE_APPEND);
 $server = "localhost";
 $user = "245";
 $pass = "245";
-$db = "dumb_drain";
+$db = "smart_drain";
 
 // make new connection with MySQL database
 $conn = new mysqli($server, $user, $pass, $db);
@@ -29,6 +29,7 @@ $conn = new mysqli($server, $user, $pass, $db);
 // if unsuccessful, exit the script and display the error code
 if ($conn->connect_error) {
     $message = date("Y-m-d H:i:s") . " - Connection failed: " . $conn->connect_error . "\n";
+    echo $message;
     file_put_contents($logs_file_path, $message, FILE_APPEND);
 
     // open error log window (this uses JavaScript)
