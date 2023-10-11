@@ -5,6 +5,7 @@ This is the new TODO as of 11/10/2023
 * A html/JS index file needs to be made that accesses the PHP run file
 * The Python file needs to be integrated
 * The error log handling needs to be optimized in PHP, Python and JS
+* The project needs to be checked for coding standard
 
 
 Testing
