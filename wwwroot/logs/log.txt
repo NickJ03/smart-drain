@@ -1,3 +1,4 @@
-Log created 2023-10-11 12:06:28
+Log created 2023-10-13 16:33:05
 ----------------------------------------------------------------------------------------------------
-2023-10-11 12:06:28 - Connection successful
+2023-10-13 16:33:05 - Connection successful
+2023-10-13 16:33:05 - Column count doesn't match value count at row 1
