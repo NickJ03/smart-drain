@@ -34,7 +34,6 @@ try {
     } else {
         $message = date("Y-m-d H:i:s") . " - Connection successful\n";
         file_put_contents($logs_file_path, $message, FILE_APPEND);
-        echo "test";
     }
 } catch (Exception $connect_error) {
     $message = date("Y-m-d H:i:s") . " - " . $connect_error->getMessage() . "\n";
