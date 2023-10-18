@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Drain</title>
+</head>
+
+<body>
+    <h1>Smart Drain Usage Data and Graphs</h1>
+    <div id="graphs"></div>
+
+    <script>
+        const displayArea = document.getElementById("graphs");
+
+        function updateGraphs(data) {
+            displayArea.innerHTML = data;
+        }
+
+        fetch('start.php')
+            .then(response => response.text())
+            .then(data => {
+                updateGraphs(data);
+                console.log(data);
+            })
+            .catch(error => {
+                console.error(error)
+            });
+    </script>
+
+</body>
+</html>
