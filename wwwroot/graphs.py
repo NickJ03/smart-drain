@@ -1,5 +1,5 @@
 import streamlit as st
-import mysql.connector
+import pymysql
 import pandas as pd
 import datetime as dt
 import matplotlib.pyplot as plt
@@ -17,7 +17,7 @@ config = {
 def fetch_data():
     """Fetch data from the database."""
     # Connect to MySQL
-    conn = mysql.connector.connect(**config)
+    conn = pymysql.connect(**config)
     query = "SELECT * FROM water_usage"
     df = pd.read_sql(query, conn)
     conn.close()
