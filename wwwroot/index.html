@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <h1>Smart Drain Usage Data and Graphs</h1>
+    <h1>You are being redirected</h1>
     <div id="graphs"></div>
 
     <script>
@@ -21,10 +21,8 @@
             .then(response => response.text())
             .then(data => {
                 updateGraphs(data);
-                console.log(data);
             })
             .catch(error => {
-                console.error(error)
             });
     </script>
 

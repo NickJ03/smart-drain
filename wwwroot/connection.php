@@ -58,7 +58,16 @@ try {
 
 // check request type POST and connect variables from microcontroller
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    $volume = $_POST["//"];
+
+    // there are two ways to extract the data, but i could not test them yet
+
+    // possibility 1: key-value pair
+    // for this, in the ESP32 code, the data has to be send as a key-value pair
+    // http.POST("volume=" + volumeData);
+    $volume = $_POST["volume"];
+
+    // possibility 2: using file_get_contents()
+    $volume = file_get_contents("php://input");
 
     try {
         // insert data into connected MySQL database
