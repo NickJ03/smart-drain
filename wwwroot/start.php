@@ -1,4 +1,9 @@
 <?php
+
+/* Author: Nick Jans
+Copyright (c) 2023 - Eindhoven University of Technology, The Netherlands
+This software is made available under the terms of the GNU General Public License v3.0. */
+
 // connect backend connection.php
 $backend = require 'connection.php';
 

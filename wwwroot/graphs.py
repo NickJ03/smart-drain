@@ -1,3 +1,7 @@
+"""Author: Jinsub Shin
+Copyright (c) 2023 - Eindhoven University of Technology, The Netherlands
+This software is made available under the terms of the GNU General Public License v3.0."""
+
 import streamlit as st
 import pymysql
 import pandas as pd
@@ -13,6 +17,7 @@ config = {
     'database': 'smart_drain',
 }
 
+
 @st.cache_data(ttl=60)
 def fetch_data():
     """Fetch data from the database."""
@@ -22,6 +27,7 @@ def fetch_data():
     df = pd.read_sql(query, conn)
     conn.close()
     return df
+
 
 # Set title and subtitle
 st.title("The amount of water usage")
