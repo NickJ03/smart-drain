@@ -13,7 +13,7 @@ config = {
     'database': 'smart_drain',
 }
 
-@st.cache(allow_output_mutation=True, ttl=60)
+@st.cache_data(ttl=60)
 def fetch_data():
     """Fetch data from the database."""
     # Connect to MySQL
