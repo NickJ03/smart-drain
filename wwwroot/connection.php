@@ -22,7 +22,6 @@ $user = "245";
 $pass = "245";
 $db = "smart_drain";
 
-
 // check if connection was successful
 // if unsuccessful, exit the script and display the error code
 try {
@@ -59,14 +58,7 @@ try {
 // check request type POST and connect variables from microcontroller
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
-    // there are two ways to extract the data, but i could not test them yet
-
-    // possibility 1: key-value pair
-    // for this, in the ESP32 code, the data has to be send as a key-value pair
-    // http.POST("volume=" + volumeData);
-    $volume = $_POST["volume"];
-
-    // possibility 2: using file_get_contents()
+    // unpack data
     $volume = file_get_contents("php://input");
 
     try {
